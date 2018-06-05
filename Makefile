@@ -1,10 +1,12 @@
 
 CART = cart.lua
+ANDROID = /storage/emulated/0/Android/data/com.nesbox.tic/files/TIC-80
+LINUX = ~/.local/share/com.nesbox.tic/TIC-80
 
 ifeq (Android,$(shell uname -o))
-	TICDIR = /storage/emulated/0/Android/data/com.nesbox.tic/files/TIC-80
+	TICDIR = $(ANDROID)
 else
-	TICDIR = /home/pcornier/.local/share/com.nesbox.tic/TIC-80
+	TICDIR = $(LINUX)
 endif
 
 META = src/_meta.lua
