@@ -14,6 +14,7 @@ LIBS = src/libs/*.lua
 OBJS = $(shell find src/objs/ -name '*.lua')
 MAIN = src/main.lua
 
+.PHONY: $(CART)
 
 $(CART): $(META) $(LIBS) $(OBJS) $(MAIN)
 	@cat $^ > $@
