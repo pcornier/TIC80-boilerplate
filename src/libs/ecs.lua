@@ -44,9 +44,9 @@ World = function()
  end
 
  function world:removeEntity(entity)
-  for i,e in pairs(entities) do
+  for i, e in pairs(entities) do
    if e == entity then
-    entities[i] = nil
+    table.remove(entities, i)
     break
    end
   end
@@ -54,6 +54,10 @@ World = function()
 
  function world:getEntities()
   return entities
+ end
+
+ function world:getSystems()
+  return systems
  end
 
  return world

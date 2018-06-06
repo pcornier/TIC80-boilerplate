@@ -1,0 +1,1 @@
+use `shake -r` to run all the tests.

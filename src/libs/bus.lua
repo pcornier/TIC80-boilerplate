@@ -1,6 +1,6 @@
 
 ------------------------------
--- Global event bus system
+-- Global event system
 ------------------------------
 
 Bus = {
