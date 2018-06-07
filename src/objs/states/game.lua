@@ -10,5 +10,5 @@ function game:enter()
 end
 
 function game:update(dt)
- world.update(dt)
+ world:update(dt)
 end
