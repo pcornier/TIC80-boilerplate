@@ -22,3 +22,7 @@ function Bus:register(event, cb)
  self.reg[event] = self.reg[event] or {}
  table.insert(self.reg[event], cb)
 end
+
+function Bus:clear()
+ self.reg = {}
+end

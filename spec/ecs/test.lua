@@ -17,6 +17,11 @@ world:addEntity(e1)
 world:addEntity(e2)
 assert(#world:getEntities() == 2, 'wrong number of entities')
 
+-- can filter entities
+assert(#world:filter({ 'pos' }) == 2, 'cannot filter entities')
+
+-- can pick one entity
+assert(world:pick({ 'color' }) == e1, 'cannot pick up entity')
 
 -- can add systems, trigger added() and access world ref
 

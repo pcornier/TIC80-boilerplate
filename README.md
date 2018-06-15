@@ -6,3 +6,5 @@ Then
 - run `make` to generate the cartridge with data. The generated cartridge will be copied to the TIC-80 directory.
 
 This project contains a very basic Entity Component System: **libs/ecs.lua**, a messaging system: **libs/bus.lua** and a state manager: **libs/state.lua**.
+
+There's a small demo project here: https://github.com/pcornier/tic80-mini-platformer

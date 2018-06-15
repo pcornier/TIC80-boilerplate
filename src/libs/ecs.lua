@@ -8,7 +8,7 @@ World = function()
  local entities = {}
  local world = {}
 
- function match(filter, entity)
+ local function match(filter, entity)
   for _, component in pairs(filter) do
    if entity[component] == nil then return false end
   end
@@ -17,23 +17,33 @@ World = function()
 
  function world:addEntity(entity)
    entities[#entities+1] = entity
+   for _, s in pairs(systems) do
+    local system = s.system
+    if match(system.filter, entity) and system.newEntity then
+     system:newEntity(entity)
+    end
+   end
  end
 
  function world:addSystem(system)
-  systems[#systems+1] = function(entities, ...)
-   system.entities = {}
-   for _, entity in pairs(entities) do
-    if match(system.filter, entity) then
-     system.entities[#system.entities+1] = entity
+  system.filter = system.filter or {}
+  systems[#systems+1] = {
+   update = function(entities, ...)
+    system.entities = {}
+    for _, entity in pairs(entities) do
+     if match(system.filter, entity) then
+      system.entities[#system.entities+1] = entity
+     end
     end
-   end
-   if system.update then system:update(...) end
-   if system.process then
-    for _, entity in pairs(system.entities) do
-     system:process(entity, ...)
+    if system.update then system:update(...) end
+    if system.process then
+     for _, entity in pairs(system.entities) do
+      system:process(entity, ...)
+     end
     end
-   end
-  end
+   end,
+   system = system
+  }
   system.world = world
   if system.added then system:added() end
  end
@@ -48,9 +58,17 @@ World = function()
   return matches
  end
 
+ function world:pick(filter)
+  for _, entity in pairs(entities) do
+   if match(filter, entity) then
+    return entity
+   end
+  end
+ end
+
  function world:update(...)
   for _, system in pairs(systems) do
-   system(entities, ...)
+   system.update(entities, ...)
   end
  end
 
