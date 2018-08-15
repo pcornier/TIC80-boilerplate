@@ -9,17 +9,25 @@ end)
 
 Bus:emit('signal1', 'some', 'data')
 
+-- can return a value
+
+Bus:register('signal2', function(a)
+  return 'signal 2 intercepted'
+end)
+
+local result = Bus:emit('signal2')
+assert(result[1] == 'signal 2 intercepted')
 
 -- can aggregate results
 
-Bus:register('signal2', function(a)
+Bus:register('signal3', function(a)
   return a + 1
 end)
 
-Bus:register('signal2', function(a)
+Bus:register('signal3', function(a)
   return a * 2
 end)
 
-local results = Bus:emit('signal2', 3)
+local results = Bus:emit('signal3', 3)
 assert(results[1] == 4, 'result should be equal to 3 + 1 = 4')
 assert(results[2] == 6, 'result should be equal to 3 * 2 = 6')
