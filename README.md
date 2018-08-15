@@ -1,4 +1,4 @@
-#TIC-80 boilerplate
+# TIC-80 boilerplate
 ---
 
 This project contains:
@@ -6,9 +6,9 @@ This project contains:
 - a messaging system: **libs/bus.lua**
 - a state manager: **libs/state.lua**
 
-Look at the specs directory for more details or look at the demo project there: https://github.com/pcornier/tic80-mini-platformer
+Look at the **spec** directory for more details or look at the demo project there: https://github.com/pcornier/tic80-mini-platformer
 
-#Setup
+# Setup
 ---
 
 First, edit Makefile and adjust these 3 parameters:
