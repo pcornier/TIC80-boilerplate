@@ -35,7 +35,7 @@ assert(currentState == state_b, 'state_b not found (switch)')
 State:push(state_a)
 assert(currentState == state_a, 'state_a not found (push)')
 
-State:pop(state_a)
+State:pop()
 assert(currentState == 'exit', 'exit() not called (pop)')
 
 State:update()

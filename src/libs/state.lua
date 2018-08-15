@@ -19,10 +19,11 @@ function State:push(s)
  s:enter()
 end
 
-function State:pop(s)
+function State:pop()
+ local state = self.stack[self.index]
  self.stack[self.index] = nil
  self.index = self.index - 1
- s:exit()
+ state:exit()
 end
 
 function State:update(...)
