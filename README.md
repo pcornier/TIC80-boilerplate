@@ -17,4 +17,4 @@ This project contains:
 
 There's a small demo project there: https://github.com/pcornier/tic80-mini-platformer
 
-On Android, I recommand the two apps Termux and DroidEdit. Termux will provide you with the two linux commands `make`and `csplit`. DroidEdit is a nice little code editor that can connect Termux through ssh in order to trigger the `make` command remotely!
+On Android, I recommend the two apps Termux and DroidEdit. Termux will provide you with the two linux commands `make`and `csplit`. DroidEdit is a nice little code editor that can connect Termux through ssh in order to trigger the `make` command remotely!
