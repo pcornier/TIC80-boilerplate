@@ -20,7 +20,7 @@ CART = 'cart.lua'
 TICPATH = os.getenv('APPDATA') + '\\com.nesbox.tic\\TIC-80'
 META = 'src\\_meta.lua'
 LIBS = 'src\\libs\\*.lua'
-OBJS = 'src\\objs\\*.lua'
+OBJS = 'src\\objs\\**\*.lua'
 MAIN = 'src\\main.lua'
 
 
@@ -49,7 +49,7 @@ else:
       with open(filename) as infile:
         outfile.write(infile.read())
 
-    for filename in glob.glob(OBJS):
+    for filename in glob.iglob(OBJS, recursive=True):
       with open(filename) as infile:
         outfile.write(infile.read())
 
