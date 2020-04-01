@@ -25,7 +25,7 @@ World = function()
    end
  end
 
- function world:addSystem(system)
+ function world:addSystem(system, group)
   system.filter = system.filter or {}
   systems[#systems+1] = {
    update = function(entities, ...)
@@ -42,7 +42,9 @@ World = function()
      end
     end
    end,
-   system = system
+   system = system,
+   enabled = true,
+   group = group or ''
   }
   system.world = world
   if system.added then system:added() end
@@ -68,7 +70,9 @@ World = function()
 
  function world:update(...)
   for _, system in pairs(systems) do
-   system.update(entities, ...)
+    if system.enabled then
+      system.update(entities, ...) 
+    end
   end
  end
 
@@ -87,6 +91,14 @@ World = function()
 
  function world:getSystems()
   return systems
+ end
+ 
+ function world:enabled(group, status)
+   for _, system in pairs(systems) do
+     if system.group == group then
+       system.enabled = status
+     end
+   end
  end
 
  return world
