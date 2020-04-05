@@ -59,6 +59,16 @@ World = function()
   end
   return matches
  end
+ 
+ function world:find(prop, value)
+  matches = {}
+  for _, entity in pairs(entities) do
+   if entity[prop] and entity[prop] == value then
+    matches[#matches+1] = entity
+   end
+  end
+  return matches
+ end
 
  function world:pick(filter)
   for _, entity in pairs(entities) do
@@ -93,7 +103,7 @@ World = function()
   return systems
  end
  
- function world:enabled(group, status)
+ function world:enable(group, status)
    for _, system in pairs(systems) do
      if system.group == group then
        system.enabled = status
