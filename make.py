@@ -1,7 +1,6 @@
 # Python Make file for Windows
-# If you already started to create some gfx or sounds/music in TIC-80,
-# then remember to export your cart in .lua format (PRO version) by saving
-# your cart in .lua format from TIC-80.
+# If you already created some gfx or sounds/music in TIC-80,
+# then remember to export your cart in .lua format (PRO version)
 # > save mygame.lua
 # Then go to your terminal and cd in your project and extract the "data"
 # section of the cartridge with:
