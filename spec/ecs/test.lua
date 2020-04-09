@@ -10,12 +10,12 @@ local e1 = {
 }
 
 local e2 = {
+  id = 'e2',
   pos = { x = 20, y = 10 }
 }
 
 world:addEntity(e1)
 world:addEntity(e2)
-assert(#world:getEntities() == 2, 'wrong number of entities')
 
 -- can filter entities
 assert(#world:filter({ 'pos' }) == 2, 'cannot filter entities')
@@ -41,7 +41,11 @@ end
 
 function posSys:update(data)
   assert(data.payload == 'ok', 'payload not received in update()')
-  assert(#self.entities == 2, 'wrong number of entities in pos system')
+  local count = 0
+  for _,e in pairs(self.entities) do
+    count = count + 1
+  end
+  assert(count == 2, 'wrong number of entities in pos system')
 end
 
 local colSys = {
@@ -53,18 +57,35 @@ function colSys:update()
 end
 
 world:addSystem(posSys)
-world:addSystem(colSys)
+world:addSystem(colSys, 'rendering')
 assert(#world:getSystems() == 2, 'wrong number of systems')
 
+-- can get by id
+assert(world:get('e2').id == 'e2', 'cannot get entity by id')
 
 -- can trigger update() and process() on systems
+world:update({ payload = 'ok' })
 
+-- can disable systems with group name
+world:enable('rendering', false)
+local count = 0
+for _,s in pairs(world:getSystems()) do
+  if s.enabled then count = count + 1 end
+end
+assert(count == 1, 'system is not disabled')
+
+-- disabled systems are not updated
+function colSys:process(e)
+  assert(false, 'should not be called anymore!')
+end
 world:update({ payload = 'ok' })
 
 -- can remove entities
 
 world:removeEntity(e1)
-assert(#world:getEntities() == 1, 'wrong number of entities after deletion')
+count = 0
+for _,e in pairs(world:getEntities()) do
+  count = count + 1
+end
+assert(count == 1, 'wrong number of entities after deletion')
 world:removeEntity(e2)
-assert(#world:getEntities() == 0, 'wrong number of entities after deletion')
-

@@ -16,7 +16,9 @@ World = function()
  end
 
  function world:addEntity(entity)
-   entities[#entities+1] = entity
+   local id = entity.id or #entities+1
+   entity.id = id
+   entities[id] = entity
    for _, s in pairs(systems) do
     local system = s.system
     if match(system.filter, entity) and system.newEntity then
@@ -87,12 +89,7 @@ World = function()
  end
 
  function world:removeEntity(entity)
-  for i, e in pairs(entities) do
-   if e == entity then
-    table.remove(entities, i)
-    break
-   end
-  end
+  entities[entity.id] = nil
  end
 
  function world:getEntities()
@@ -111,6 +108,9 @@ World = function()
    end
  end
 
+ function world:get(id)
+   return entities[id]
+ end
+
  return world
 end
-
